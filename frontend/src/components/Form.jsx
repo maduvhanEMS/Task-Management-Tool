@@ -1,18 +1,13 @@
-import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  createProject,
-  reset,
-  resetProject,
-} from "../features/projects/projectSlice";
-import Spinner from "./Spinner";
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { createProject, resetProject } from '../features/projects/projectSlice';
 
 function Form() {
   const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    userId: "",
+    name: '',
+    description: '',
+    userId: '',
   });
 
   const { users } = useSelector((state) => state.auth);
@@ -21,7 +16,7 @@ function Form() {
 
   const dispatch = useDispatch();
 
-  const { isLoading, isError, message, isSuccess, projectAdded } = useSelector(
+  const { isError, message, isSuccess, projectAdded } = useSelector(
     (state) => state.projects
   );
 
@@ -34,7 +29,7 @@ function Form() {
     }
 
     dispatch(resetProject());
-  }, [isError, message, isSuccess, dispatch]);
+  }, [isError, message, isSuccess, dispatch, projectAdded]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,7 +42,7 @@ function Form() {
   const onSubmit = (e) => {
     e.preventDefault();
     if (!name || !description) {
-      toast.error("Please populate all fields");
+      toast.error('Please populate all fields');
     } else {
       const projectData = {
         name,
@@ -57,27 +52,23 @@ function Form() {
 
       dispatch(createProject(projectData));
       setFormData({
-        name: "",
-        description: "",
-        userId: "",
+        name: '',
+        description: '',
+        userId: '',
       });
     }
   };
 
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
-
   return (
-    <section className="heading">
+    <section className='heading'>
       <p>Add a project</p>
-      <section className="form">
+      <section className='form'>
         <form onSubmit={onSubmit}>
-          <div className="form-group">
+          <div className='form-group'>
             <select
-              className="form-control"
-              name="userId"
-              id="name"
+              className='form-control'
+              name='userId'
+              id='name'
               value={userId}
               onChange={handleChange}
             >
@@ -89,30 +80,30 @@ function Form() {
               ))}
             </select>
           </div>
-          <div className="form-group">
+          <div className='form-group'>
             <input
-              type="text"
-              className="form-control"
-              name="name"
-              id="name"
+              type='text'
+              className='form-control'
+              name='name'
+              id='name'
               value={name}
-              placeholder="Enter project name"
+              placeholder='Enter project name'
               onChange={handleChange}
             />
           </div>
-          <div className="form-group">
+          <div className='form-group'>
             <textarea
-              type="text"
-              className="form-control"
-              name="description"
-              id="description"
+              type='text'
+              className='form-control'
+              name='description'
+              id='description'
               value={description}
-              placeholder="Enter project description"
+              placeholder='Enter project description'
               onChange={handleChange}
             />
           </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-block">
+          <div className='form-group'>
+            <button type='submit' className='btn btn-block'>
               Submit
             </button>
           </div>

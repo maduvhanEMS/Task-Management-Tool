@@ -64,8 +64,10 @@ function GanttPage() {
             Project:
           </label>
           <select value={projectId} onChange={onChange}>
-            {projects?.map((project) => (
-              <option value={project?._id}>{project?.name}</option>
+            {projects?.map((project, index) => (
+              <option value={project?._id} key={index}>
+                {project?.name}
+              </option>
             ))}
           </select>
         </div>
